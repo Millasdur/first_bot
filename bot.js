@@ -2,7 +2,7 @@ const axios = require('axios');
 const config = require('./config.js');
 
 function getCurrentWeather(city, date){
-    if ((date.match(/[Nn]ow/g)) != null || (date.match(/[Tt]oday/g)) != null){
+    if ((date.raw.match(/[Nn]ow/g)) != null || (date.raw.match(/[Tt]oday/g)) != null){
         return axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${config.WEATHER_TOKEN}`
         ).then(results => {
             console.log(results.data);
