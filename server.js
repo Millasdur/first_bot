@@ -30,4 +30,4 @@ app.post('/bot', (req, res) => {
     date = null;
 })
 
-app.listen(config.PORT, () => console.log(`App started on port ${config.PORT}`));
+app.listen(process.env.PORT || 5000, () => console.log(`App started on port ${config.PORT}`));
