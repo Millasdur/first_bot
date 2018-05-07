@@ -23,6 +23,7 @@ return axios.get(`https://api.themoviedb.org/3/discover/${kind}`, {
     }];
     }
 
+    results = resulsts + '';
     const cards = results.slice(0, 10).map(movie => ({
     title: movie.title || movie.name,
     subtitle: movie.overview,
