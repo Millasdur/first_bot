@@ -43,7 +43,7 @@ const movieGenres = [
   function discoverMovie(kind, genreId, language) {
     return axios.get(`https://api.themoviedb.org/3/discover/${kind}`, {
       params: {
-        api_key: config.MOVIEDB_TOKEN,
+        api_key: config.MOVIE_TOKEN,
         sort_by: 'popularity.desc',
         include_adult: false,
         with_genres: genreId,
