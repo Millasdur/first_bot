@@ -29,7 +29,7 @@ app.post('/bot', (req, res) => {
     }));
     location = null;
     date = null;
-})
+});
 
 app.post('/movie', (req, res) => {
     console.log('[POST] /movie');
