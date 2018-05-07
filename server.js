@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const config = require('./config.js');
 const getWeather = require('./bot.js');
-const movie = require('./movie.js')
+const discoverMovie = require('./movie.js')
 
 const app = express();
 app.use(bodyParser.json());
