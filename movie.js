@@ -83,6 +83,6 @@ const movieGenres = [
     });
   }
   
-  module.exports.discoverMovie = discoverMovie;
+  module.exports.discoverMovie() = discoverMovie;
 
-  module.exports.getGenreId = getGenreId;
+  module.exports.getGenreId() = getGenreId;
