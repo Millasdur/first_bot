@@ -23,8 +23,8 @@ return axios.get(`https://api.themoviedb.org/3/discover/${kind}`, {
     }];
     }
 
-    console.log(results);
-    const cards = results.slice(0, 10).map(movie => ({
+    console.log(results[0]);
+    const cards = results[0].slice(0, 10).map(movie => ({
     title: movie.title || movie.name,
     subtitle: movie.overview,
     imageUrl: `https://image.tmdb.org/t/p/w640${movie.poster_path}`,
