@@ -53,7 +53,7 @@ app.post('/errors', (req, res) => {
 });
 
 app.post('/bot', (req, res) => {
-    console.log("Weather request received -> POST /bot");
+    console.log("Weather request received -> POS/bot");
     const memory = req.body.conversation.memory;
     const location = memory.location;
     const date = memory.datetime;
@@ -86,11 +86,8 @@ app.post('/movie', (req, res) => {
     return discoverMovie(kind, genreId, isoCode)
         .then((carouselle) => res.json({
         replies: carouselle,
-        conversation: {
-            memory: {}
-        }
       }))
   });
 
-app.listen(5000, () => console.log(`App started on port ${config.PORT}`));
-//app.listen(process.env.PORT || 5000, () => console.log(`App started on port ${config.PORT}`));
+
+app.listen(process.env.PORT || 5000, () => console.log(`App started on port ${config.PORT}`));

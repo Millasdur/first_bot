@@ -1,7 +1,10 @@
 const axios = require('axios');
 const config = require('./config.js');
 
+
+// get Weather
 function getCurrentWeather(city, date){
+    // if date is now or today
     if ((date.raw.match(/[Nn]ow/g)) != null || (date.raw.match(/[Tt]oday/g)) != null){
         return axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${config.WEATHER_TOKEN}`
         ).then(results => {
@@ -19,6 +22,7 @@ function getCurrentWeather(city, date){
             }];
         });
     }
+    //if users asked for prediction
     else{
         return axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&APPID=${config.WEATHER_TOKEN}`
         ).then(results => {
@@ -47,7 +51,7 @@ function getCurrentWeather(city, date){
             }
             return [{
                 type: 'text',
-                content : `Here's what i found for the next 5 days for ${results.data.city.name} :${res}`,
+                content : `Here's what i found for the next days for ${results.data.city.name} :${res}`,
             }];
         }).catch(err =>{
             console.log(err);
