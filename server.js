@@ -1,4 +1,4 @@
-// index.js
+// server.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const config = require('./config.js');
@@ -35,17 +35,17 @@ const movieGenres = [
     { id: 10770, name: 'TV Movie' },
   ];
 
-// Find the moviedb id of a genre entity
+  // Find the movie id of a genre entity
 function getGenreId(genre) {
-const row = movieGenres.find(function(elem) {
-    return elem.name.toLowerCase() === genre.toLowerCase();
-});
+    const row = movieGenres.find(function(elem) {
+        return elem.name.toLowerCase() === genre.toLowerCase();
+    });
+    if (row) {
+        return row.id;
+    }
+    return null;
+}
 
-if (row) {
-    return row.id;
-}
-return null;
-}
 
 app.post('/errors', (req, res) => {
    console.error(req.body);
@@ -53,7 +53,7 @@ app.post('/errors', (req, res) => {
 });
 
 app.post('/bot', (req, res) => {
-    console.log("Message recieved");
+    console.log("Weather request received -> /bot");
     const memory = req.body.conversation.memory;
     console.log(memory);
     const location = memory.location;
@@ -71,35 +71,26 @@ app.post('/bot', (req, res) => {
 });
 
 app.post('/movie', (req, res) => {
-    console.log('[POST] /movie');
+    console.log('Movie request received -> POST /movie');
     const memory = req.body.conversation.memory;
     const movie = memory.movie;
     const tv = memory.tv;
-
-    // Check for the presence of entities movie or tv
-    // If both are present, we prioritize movie
     const kind = movie ? 'movie' : 'tv';
-
-    const genre = memory.genre;
-    const genreId = getGenreId(genre.value);
-
     const language = memory.language;
+    const genreId = getGenreId(memory.genre.value);
     const nationality = memory.nationality;
-
-    // Similar to movie and tv, we prioritize language over nationality
     const isoCode = language
+
       ? language.short.toLowerCase()
       : nationality.short.toLowerCase();
 
     return discoverMovie(kind, genreId, isoCode)
-      .then((carouselle) => res.json({
+        .then((carouselle) => res.json({
         replies: carouselle,
         conversation: {
-            memory:
-            {}
+            memory: {}
         }
       }))
-      .catch((err) => console.error('movieApi::discoverMovie error: ', err));
   });
 
 app.listen(5000, () => console.log(`App started on port ${config.PORT}`));

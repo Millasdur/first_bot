@@ -1,9 +1,14 @@
 const axios = require('axios');
 const config = require('./config.js');
 
-
-
-function discoverMovie(kind, genreId, language) {
+ function discoverMovie(kind, genreId, language){
+    if (genreId == null){
+        console.log(`Unknown genre [${genre}]`);
+        return [{
+            type: 'quickReplies',
+            content: `Sorry, but I don\'t recognize this genre : ${genreId}`,
+        }];
+    }
 return axios.get(`https://api.themoviedb.org/3/discover/${kind}`, {
     params: {
     api_key: config.MOVIE_TOKEN,
@@ -14,36 +19,32 @@ return axios.get(`https://api.themoviedb.org/3/discover/${kind}`, {
     },
 }).then(results => {
     if (results.data.total_results === 0) {
-    return [{
-        type: 'quickReplies',
-        content: {
-        title: 'Sorry, but I could not find any results for your request :(',
-        buttons: [{ title: 'Start over', value: 'Start over' }],
-        },
-    }];
+        console.log('No match');
+        return [{
+            type: 'text',
+            content : `I'm sorry, i couldn't get any suggestions`,
+        }];
     }
     const cards = results.data.results.slice(0, 10).map(movie => ({
-    title: movie.title || movie.name,
-    subtitle: movie.overview,
-    imageUrl: `https://image.tmdb.org/t/p/original${movie.poster_path}`,
-    buttons: [
-        {
-        type: 'web_url',
-        value: `https://www.themoviedb.org/movie/${movie.id}`,
-        title: 'View More',
-        },
-    ],
+        title: movie.title,
+        subtitle: movie.overview,
+        imageUrl: `https://image.tmdb.org/t/p/original${movie.poster_path}`,
+        buttons: [
+            {
+            type: 'web_url',
+            value: `https://www.themoviedb.org/movie/${movie.id}`,
+            title: 'View More',
+            },
+        ],
     }));
 
     return [
-    {
-        type: 'text',
-        content: "Here's what I found for you!",
-    },
-    { type: 'carousel', content: cards },
-    ];
-});
-}
-
+        {
+            type: 'text',
+            content: "Here's what I found for you!",
+        },
+        { type: 'carousel', content: cards },
+        ];
+    });
+ }
 module.exports = discoverMovie;
-
