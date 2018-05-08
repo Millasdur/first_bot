@@ -32,7 +32,7 @@ function getCurrentWeather(city, date){
             date = date.split(' ');
             date.splice(3, 6);
             date = date.join();
-            res = `\n${date.replace(",", " ")} ${list[Math.floor(start / 2)].weather[0].description} ${Math.floor(list[Math.floor(start / 2)].main.temp - 273.15)} °C`;
+            res = `\n${date.replace(/,/g, " ")} ${list[Math.floor(start / 2)].weather[0].description} ${Math.floor(list[Math.floor(start / 2)].main.temp - 273.15)} °C`;
             for (var i = start; i < 32; i += 8){
                 date = new Date((list[i + 4].dt * 1000)) + '';
                 console.log(date);

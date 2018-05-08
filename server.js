@@ -53,9 +53,8 @@ app.post('/errors', (req, res) => {
 });
 
 app.post('/bot', (req, res) => {
-    console.log("Weather request received -> /bot");
+    console.log("Weather request received -> POST /bot");
     const memory = req.body.conversation.memory;
-    console.log(memory);
     const location = memory.location;
     const date = memory.datetime;
     const city = location.raw;
