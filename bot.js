@@ -28,6 +28,7 @@ function getCurrentWeather(city, date){
             var tmp = null;
             var start = 8 - (40 - results.data.cnt);
             var date = new Date((list[Math.floor(start / 2)].dt * 1000)) + '';
+            
             date = date.split(' ');
             date.splice(3, 6);
             date = date.join();

@@ -13,7 +13,7 @@ return axios.get(`https://api.themoviedb.org/3/discover/${kind}`, {
     with_original_language: language,
     },
 }).then(results => {
-    if (results.length === 0) {
+    if (results.data.total_results === 0) {
     return [{
         type: 'quickReplies',
         content: {
@@ -22,12 +22,10 @@ return axios.get(`https://api.themoviedb.org/3/discover/${kind}`, {
         },
     }];
     }
-
-    console.log(results[0]);
-    const cards = results[0].slice(0, 10).map(movie => ({
+    const cards = results.data.results.slice(0, 10).map(movie => ({
     title: movie.title || movie.name,
     subtitle: movie.overview,
-    imageUrl: `https://image.tmdb.org/t/p/w640${movie.poster_path}`,
+    imageUrl: `https://image.tmdb.org/t/p/original${movie.poster_path}`,
     buttons: [
         {
         type: 'web_url',

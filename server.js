@@ -94,8 +94,13 @@ app.post('/movie', (req, res) => {
     return discoverMovie(kind, genreId, isoCode)
       .then((carouselle) => res.json({
         replies: carouselle,
+        conversation: {
+            memory:
+            {}
+        }
       }))
       .catch((err) => console.error('movieApi::discoverMovie error: ', err));
   });
 
-app.listen(process.env.PORT || 5000, () => console.log(`App started on port ${config.PORT}`));
+app.listen(5000, () => console.log(`App started on port ${config.PORT}`));
+//app.listen(process.env.PORT || 5000, () => console.log(`App started on port ${config.PORT}`));
