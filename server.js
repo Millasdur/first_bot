@@ -2,7 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const config = require('./config.js');
-const getWeather = require('./bot.js');
+const getWeather = require('./weather.js');
 const discoverMovie = require('./movie.js')
 
 const app = express();
@@ -35,7 +35,7 @@ const movieGenres = [
     { id: 10770, name: 'TV Movie' },
   ];
 
-  // Find the movie id of a genre entity
+  // Find the movie id corresponding to a genre
 function getGenreId(genre) {
     const row = movieGenres.find(function(elem) {
         return elem.name.toLowerCase() === genre.toLowerCase();
@@ -52,7 +52,7 @@ app.post('/errors', (req, res) => {
    res.sendStatus(200); 
 });
 
-app.post('/bot', (req, res) => {
+app.post('/weather', (req, res) => {
     console.log("Weather request received -> POS/bot");
     const memory = req.body.conversation.memory;
     const location = memory.location;
@@ -78,10 +78,7 @@ app.post('/movie', (req, res) => {
     const language = memory.language;
     const genreId = getGenreId(memory.genre.value);
     const nationality = memory.nationality;
-    const isoCode = language
-
-      ? language.short.toLowerCase()
-      : nationality.short.toLowerCase();
+    const isoCode = language ? language.short.toLowerCase() : nationality.short.toLowerCase();
 
     return discoverMovie(kind, genreId, isoCode)
         .then((carouselle) => res.json({

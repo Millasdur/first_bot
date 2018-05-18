@@ -22,7 +22,7 @@ function getCurrentWeather(city, date){
             }];
         });
     }
-    //if users asked for prediction
+    //if user asked for prediction
     else{
         return axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&APPID=${config.WEATHER_TOKEN}`
         ).then(results => {
@@ -41,8 +41,7 @@ function getCurrentWeather(city, date){
                 date = new Date((list[i + 4].dt * 1000)) + '';
                 console.log(date);
                 date = date.split(' ');
-                if (tmp == null || date[0] != tmp)
-                {
+                if (tmp == null || date[0] != tmp){
                     tmp = date[0];
                     date.splice(3, 6); 
                     date = date.join();  
