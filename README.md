@@ -6,6 +6,10 @@ API permettant le dialogue entre la plateforme [Recast.ai](https://recast.ai/) e
 
 Host : [Heroku](https://www.heroku.com/)
 
+## Lien vers le bot
+
+[Recast bot](https://recast.ai/millasdur/omegabot)
+
 ## Lien vers le webchat
 
 ---> [Webchat](https://millasdur.github.io/) <---
