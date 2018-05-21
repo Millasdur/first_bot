@@ -8,7 +8,6 @@ function getCurrentWeather(city, date){
     if ((date.raw.match(/[Nn]ow/g)) != null || (date.raw.match(/[Tt]oday/g)) != null){
         return axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${config.WEATHER_TOKEN}`
         ).then(results => {
-            console.log(results.data);
             return [{
                 type: 'text',
                 content : `Here's what i found :\
@@ -26,7 +25,6 @@ function getCurrentWeather(city, date){
     else{
         return axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&APPID=${config.WEATHER_TOKEN}`
         ).then(results => {
-            console.log(results.data.list);
             var list = results.data.list;
             var res = '';
             var tmp = null;
@@ -37,6 +35,7 @@ function getCurrentWeather(city, date){
             date.splice(3, 6);
             date = date.join();
             res = `\n${date.replace(/,/g, " ")} ${list[Math.floor(start / 2)].weather[0].description} ${Math.floor(list[Math.floor(start / 2)].main.temp - 273.15)} °C`;
+            //get the relevant datas for each days
             for (var i = start; i < 32; i += 8){
                 date = new Date((list[i + 4].dt * 1000)) + '';
                 console.log(date);
