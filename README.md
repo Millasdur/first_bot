@@ -4,6 +4,8 @@ API permettant de discuter entre la plateforme [Recast.ai](https://recast.ai/) e
 * [OpenWeatherMap](https://openweathermap.org/)
 * [TheMoviedb](https://www.themoviedb.org/)
 
+Host : [Heroku](https://www.heroku.com/)
+
 ## Lien vers le webchat
 
 ---> [Webchat](https://millasdur.github.io/) <---
